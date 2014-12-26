@@ -1,8 +1,9 @@
-## Ubuntu LTS verion with some extra commands
+## Ubuntu LTS version with some extra commands
 
 This is a docker images different LTS version of Ubuntu with som extra commands
 
 Extra included packages are
+
 - wget
 - curl
 - zip
