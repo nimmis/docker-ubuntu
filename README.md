@@ -22,6 +22,6 @@ This docker images only distributes LTS versions 12.04 and 14.04 using the follo
 
 ### Installation
 
-docker run -ti nimms/ubuntu:<tag>
+`docker run -ti nimms/ubuntu:<tag>`
 
 
