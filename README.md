@@ -53,21 +53,14 @@ Extra included packages are
 
 - wget
 - curl
-- zip
+- zip/unzip
 - git
 - vim
 - nano
 - psmisc
+- less
+- patch
 - software-properties-common
-
-### Versions and Tags
-
-This docker images only distributes LTS versions 12.04 and 14.04 using the following tags
-
-- 12.04
-- 14.04
-- latest , the same as 14.04 atm
-
 
 ### Installation
 
