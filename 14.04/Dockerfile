@@ -15,7 +15,8 @@ ADD ./supervisor/conf.d/crond.conf /etc/supervisor/conf.d/
 ADD ./supervisor/conf.d/syslog-ng.conf /etc/supervisor/conf.d/
 
 # Add my_init script and help scripts 
-ADD bin/my_* /
+ADD bin/my_init /
+ADD bin/my_service /
 RUN chmod +x /my_*
 
 # Set environment variables.
