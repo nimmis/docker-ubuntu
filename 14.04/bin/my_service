@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+
+import signal, sys, subprocess
+
+def signal_handler(signal, frame):
+	return_code = subprocess.call("service "+sys.argv[1]+" stop", shell=True)
+	sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
+
+if len(sys.argv) != 2:
+	sys.exit('Usage: %s service' % sys.argv[0])
+
+return_code = subprocess.call("service "+sys.argv[1]+" start", shell=True)
+
+if (return_code == 0):
+	signal.pause()
+
+
