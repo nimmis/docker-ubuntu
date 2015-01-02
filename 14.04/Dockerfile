@@ -10,7 +10,7 @@ ADD bin/fix.sh /fix.sh
 RUN chmod +x /fix.sh && /fix.sh && rm /fix.sh
 
 # configure supervisor
-ADD ./supervisor/* /etc/supervisor/
+ADD ./supervisor/supervisord.conf /etc/supervisor/
 Add ./supervisor/conf.d/* /etc/supervisor/conf.d/
 
 # Add my_init script and help scripts 
