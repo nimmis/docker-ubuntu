@@ -11,10 +11,20 @@ The unix process ID 1 is the process to receive the SIGTERM signal when you exec
 if the container has the command `CMD ["bash"]` then bash process will get the SIGTERM signal and terminate.
 All other processes running on the system will just stop without the possibility to shutdown correclty
 
-### My init.pl init script
+### my_init init script
 
 In this container i have a scipt that handles the init process an uses the [supervisor system](http://supervisord.org/index.html) to start
-the daemons to run and also catch signals (SIGTERM) to shutdown all processes started by supervisord.
+the daemons to run and also catch signals (SIGTERM) to shutdown all processes started by supervisord. This is a modified version of
+an init script made by Phusion. I've modified it to use supervisor in stead of runit. There are also two directories to run scripts
+before any daemon is started.
+
+#### Run script once /etc/my_runonce
+
+All executable in this directory is run at start, after completion the script is removed from the directory
+
+#### Run script every start /etc/my_runalways
+
+All executable in this directory is run at every start of the container, ie, at `docker run` and `docker start`
 
 ### cron daemon
 
@@ -75,17 +85,21 @@ but if you want to check if all services has been started correctly you can star
 the output, if working correctly should be
 
 	docker run -ti nimmis/ubuntu14
-	init started....
-	Process status is:
-	crond                            RUNNING    pid 15, uptime 0:00:01
-	syslog-ng                        RUNNING    pid 14, uptime 0:00:01
-	..................................................................
+	*** Run files in /etc/my_runonce/
+	*** Run files in /etc/my_runalways/
+	*** Running /etc/rc.local...
+	*** Booting supervisor daemon...
+	*** Supervisor started as PID 11
+	2015-01-02 10:45:43,750 CRIT Set uid to user 0
+	2015-01-02 10:45:43,800 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+	*** Started processes via Supervisor......
+	crond                            RUNNING    pid 15, uptime 0:00:02
+	syslog-ng                        RUNNING    pid 14, uptime 0:00:02
 
-pressing a CTRL-C (simulate docker stop)  will generate the following output
+pressing a CTRL-C in that window  or running `docker stop <container ID>` will generate the following output
 
-	^CShutting down all processes....
-	Shut down
-
+	*** Shutting down supervisor daemon (PID 11)...
+	*** Killing all processes...
 
 you can the restart that container with 
 
