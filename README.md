@@ -91,7 +91,6 @@ the output, if working correctly should be
 	*** Booting supervisor daemon...
 	*** Supervisor started as PID 11
 	2015-01-02 10:45:43,750 CRIT Set uid to user 0
-	2015-01-02 10:45:43,800 CRIT Server 'unix_http_server' running without any HTTP authentication checking
 	*** Started processes via Supervisor......
 	crond                            RUNNING    pid 15, uptime 0:00:02
 	syslog-ng                        RUNNING    pid 14, uptime 0:00:02
