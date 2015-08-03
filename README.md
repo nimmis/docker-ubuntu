@@ -26,6 +26,11 @@ All executable in this directory is run at start, after completion the script is
 
 All executable in this directory is run at every start of the container, ie, at `docker run` and `docker start`
 
+#### Permanent output to docker log when starting container
+
+Each time the container is started the content of the file /var/log/startup.log is displayed so if your startup scripts generate 
+vital information to be shown please add that information to that file
+
 ### cron daemon
 
 In many cases there are som need of things happening att given intervalls, default no cron processs is started
