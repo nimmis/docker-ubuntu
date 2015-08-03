@@ -260,9 +260,9 @@ def wait_for_supervisor_services():
 			time.sleep(0.1)
 
 def show_startup_file():
-        if os.path.isfile("/var/log/startup.log"):
+        if os.path.isfile("/tmp/startup.log"):
                 info("..........startup.log..........")
-                with open("/var/log/startup.log") as log:
+                with open("/tmp/startup.log") as log:
                         for line in log:
                                 info(line.rstrip())
                 info(".......end of startup.log......")

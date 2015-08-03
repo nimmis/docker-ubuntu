@@ -1,6 +1,7 @@
 ## Ubuntu LTS version with some extra commands
+ [![Docker Hub; nimmis/ubuntu](https://img.shields.io/badge/dockerhub-nimmis%2Fubuntu-green.svg)](https://registry.hub.docker.com/u/nimmis/ubuntu)
 
-This is a docker images different LTS version of Ubuntu with a working init process
+This is a docker images with different LTS version of Ubuntu with a working init process and syslog
 
 ### Why use this image
 
@@ -28,8 +29,9 @@ All executable in this directory is run at every start of the container, ie, at 
 
 #### Permanent output to docker log when starting container
 
-Each time the container is started the content of the file /var/log/startup.log is displayed so if your startup scripts generate 
-vital information to be shown please add that information to that file
+Each time the container is started the content of the file /tmp/startup.log is displayed so if your startup scripts generate 
+vital information to be shown please add that information to that file. This information can be retrieved anytime by
+executing `docker logs <container id>`
 
 ### cron daemon
 
