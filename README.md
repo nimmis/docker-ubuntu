@@ -62,6 +62,70 @@ Output logs std and error is found in /var/log/supervisor/ and the files begins 
 
 For more settings please consult the [manual FOR supervisor](http://supervisord.org/configuration.html#program-x-section-settings)
 
+#### starting commands from /etc/init.d/ or commands that detach with my_service
+
+The supervisor process assumes that a command that ends has stopped so if the command detach it will try to restart it. To work around this
+problem I have written an extra command to be used for these commands. First you have to make a normal start/stop command and place it in
+the /etc/init.d that starts the program with
+
+	/etc/init.d/command start or
+	service command start
+
+and stops with
+
+        /etc/init.d/command stop or
+        service command stop
+
+Configure the configure-file (/etc/supervisor/conf.d/myprogram.conf)
+
+	[program:myprogram]
+	command=/my_service myprogram
+
+There is an optional parameter, to run a script after a service has start, e.g to run the script /usr/local/bin/postproc.sh av myprogram is started
+
+        [program:myprogram]
+        command=/my_service myprogram /usr/local/bin/postproc.sh
+
+### Output information to docker logs
+
+The console output is owned by the my_init process so any output from commands woun't show in the docker log. To send a text from any command, either
+at startup och during run, append the output to the file /var/log/startup.log, e.g sending specific text to log
+
+	echo "Application is finished" >> /var/log/startup.log
+
+or output from script
+
+	/usr/local/bin/myscript >> /var/log/startlog.log
+
+
+	> docker run -d --name ubuntu nimmis/ubuntu
+	> docker logs ubuntu
+	*** open logfile
+	*** Run files in /etc/my_runonce/
+	*** Run files in /etc/my_runalways/
+	*** Running /etc/rc.local...
+	*** Booting supervisor daemon...
+	*** Supervisor started as PID 9
+	2015-08-04 11:34:06,763 CRIT Set uid to user 0
+	*** Started processes via Supervisor......
+	crond                            RUNNING    pid 13, uptime 0:00:04
+	syslog-ng                        RUNNING    pid 12, uptime 0:00:04
+
+	> docker exec ubuntu sh -c 'echo "Testmessage to log" >> /var/log/startup.log'
+	> docker logs ubuntu
+        *** open logfile
+        *** Run files in /etc/my_runonce/
+        *** Run files in /etc/my_runalways/
+        *** Running /etc/rc.local...
+        *** Booting supervisor daemon...
+        *** Supervisor started as PID 9
+        2015-08-04 11:34:06,763 CRIT Set uid to user 0
+        *** Started processes via Supervisor......
+        crond                            RUNNING    pid 13, uptime 0:00:04
+        syslog-ng                        RUNNING    pid 12, uptime 0:00:04
+
+	*** Log: Testmessage to log
+        >
 ### Added som normaly used commands
 
 There are a number of commands that most uses and adds to their build, in this build I've added som commonly used packages
@@ -92,6 +156,7 @@ but if you want to check if all services has been started correctly you can star
 the output, if working correctly should be
 
 	docker run -ti nimmis/ubuntu14
+	*** open logfile
 	*** Run files in /etc/my_runonce/
 	*** Run files in /etc/my_runalways/
 	*** Running /etc/rc.local...
