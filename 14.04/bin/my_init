@@ -12,6 +12,8 @@ LOG_LEVEL_DEBUG = 3
 log_level = None
 
 terminated_child_processes = {}
+logfile = None
+LOGFILE_NAME = '/var/log/startup.log'
 
 class AlarmException(Exception):
 	pass
@@ -32,6 +34,38 @@ def debug(message):
 	if log_level >= LOG_LEVEL_DEBUG:
 		sys.stderr.write("*** %s\n" % message)
 
+def open_logfile():
+	global logfile
+	try:
+		info('open logfile')
+		logfile = open(LOGFILE_NAME,'r')
+	except:
+		#info("Error opening " + filename)
+		info("Error logfil(" + LOGFILE_NAME + ") raised " + str(sys.exc_info()[0]) )
+		logfile = None
+
+def fetch_logfile():
+	global logfile
+	if logfile is not None:
+		line = logfile.readline()
+		while line:
+			info ("Log: " + line.rstrip() )
+			line = logfile.readline()
+
+def clear_logfile():
+	global logfile
+	if logfile is not None:
+		try:
+			logfile.close()
+		except:
+			info("Error closing logfile " + LOGFILE_NAME + " raised " + str(sys.exc_info()[0]) )
+	try:
+		logfile = open(LOGFILE_NAME,'w')
+		logfile.write("")
+		logfile.close()
+	except:
+		info("Error clearing logfile " + LOGFILE_NAME + " raised " + str(sys.exc_info()[0]) )
+		
 def ignore_signals_and_raise_keyboard_interrupt(signame):
 	signal.signal(signal.SIGTERM, signal.SIG_IGN)
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
@@ -121,7 +155,10 @@ def waitpid_reap_other_children(pid):
 	status = None
 	while not done:
 		try:
-			this_pid, status = os.waitpid(-1, 0)
+			fetch_logfile()
+			this_pid, status = os.waitpid(-1, os.WNOHANG)
+			time.sleep(1)
+
 			if this_pid == pid:
 				done = True
 			else:
@@ -259,14 +296,6 @@ def wait_for_supervisor_services():
 		if not done:
 			time.sleep(0.1)
 
-def show_startup_file():
-        if os.path.isfile("/tmp/startup.log"):
-                info("..........startup.log..........")
-                with open("/tmp/startup.log") as log:
-                        for line in log:
-                                info(line.rstrip())
-                info(".......end of startup.log......")
-
 def install_insecure_key():
 	info("Installing insecure SSH key for user root")
 	run_command_killable("/usr/sbin/enable_insecure_key")
@@ -275,6 +304,11 @@ def main(args):
 	create_hosts_file()
 	import_envvars(False, False)
 	export_envvars()
+
+	if os.environ.get('CLEAR_LOG') is not None:
+		info("Logfile will be cleared at shutdown")
+
+	open_logfile()
 
 	if args.enable_insecure_key:
 		install_insecure_key()
@@ -287,8 +321,6 @@ def main(args):
 
 	if not args.skip_supervisor:
 		supervisor_pid = start_supervisor()
-
-	show_startup_file()
 
 	try:
 		exit_status = None
@@ -365,4 +397,6 @@ except KeyboardInterrupt:
 finally:
 	if args.kill_all_on_exit:
 		kill_all_processes(KILL_ALL_PROCESSES_TIMEOUT)
-
+	if os.environ.get('CLEAR_LOG') is not None:
+		info("Clearing logfile")
+		clear_logfile()
