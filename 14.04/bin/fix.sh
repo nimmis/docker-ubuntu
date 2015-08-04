@@ -44,3 +44,6 @@ mkdir /etc/my_runalways
 mkdir /etc/container_environment
 mkdir /etc/workaround-docker-2267
 
+# setup logfile to be writable by all
+touch /var/log/startup.log
+chmod 666 /var/log/startup.log

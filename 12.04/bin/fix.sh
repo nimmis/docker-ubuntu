@@ -49,3 +49,7 @@ mkdir /etc/workaround-docker-2267
 
 # fix missing directory for syslog-ng
 mkdir /var/lib/syslog-ng
+
+# setup logfile to be writable by all
+touch /var/log/startup.log
+chmod 666 /var/log/startup.log
