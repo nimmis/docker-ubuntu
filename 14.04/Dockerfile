@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Do OS fixes
 ADD bin/fix.sh /fix.sh
-RUN chmod +x /fix.sh && /fix.sh && rm /fix.sh
+RUN /bin/bash /fix.sh && rm /fix.sh
 
 # configure supervisor
 ADD ./supervisor/supervisord.conf /etc/supervisor/
