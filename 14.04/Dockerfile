@@ -5,19 +5,25 @@ MAINTAINER nimmis <kjell.havneskold@gmail.com>
 # disable interactive functions
 ENV DEBIAN_FRONTEND noninteractive
 
-# Do OS fixes
-ADD bin/fix.sh /fix.sh
-RUN /bin/bash /fix.sh && rm /fix.sh
-
-# configure supervisor
-ADD ./supervisor/supervisord.conf /etc/supervisor/
-ADD ./supervisor/conf.d/crond.conf /etc/supervisor/conf.d/
-ADD ./supervisor/conf.d/syslog-ng.conf /etc/supervisor/conf.d/
-
-# Add my_init script and help scripts 
-ADD bin/my_init /
-ADD bin/my_service /
-RUN chmod +x /my_*
+RUN apt-get update && apt-get install  -y --no-install-recommends git ca-certificates && \
+    # Create autorun directories
+    mkdir /etc/my_runonce && mkdir /etc/my_runalways && \
+    # moved all configuration to separate git repository
+    git clone https://github.com/nimmis/docker-utils.git && \
+    # run os fixes for Ubuntu
+    docker-utils/ubuntu/root/fix.sh && \
+    # copy configuration files and commands to disk
+    cp -p docker-utils/ubuntu/bin/* /usr/local/bin/ && \
+    cp -p docker-utils/ubuntu/my_runonce/* /etc/my_runonce/ && \
+    cp -p docker-utils/ubuntu/root/my* / && \
+    cp -pR docker-utils/ubuntu/supervisor /etc/ && \
+    # remove repository from image
+    rm -Rf docker-utils && \
+    # remove extra space from git command
+    apt-get remove -y git && \
+    apt-get autoremove -y && \
+    # remove apt cache from image
+    apt-get clean all
 
 # Set environment variables.
 ENV HOME /root
