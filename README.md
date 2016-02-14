@@ -3,6 +3,8 @@
 
 This is a docker images with different LTS version of Ubuntu with a working init process and syslog
 
+Now with beta of 16.04
+
 ### Why use this image
 
 The unix process ID 1 is the process to receive the SIGTERM signal when you execute a 
@@ -225,5 +227,5 @@ nimmis/ubuntu:<tag> where tag is
 - latest -  this gives the latest LTS version (14.04)
 - 12.04  -  this gives the 12.04 LTS version
 - 14.04  -  this gives the 14.04 LTS version
-
+- 16.04  -  this gives the beta of 16.04 LTS version
 
