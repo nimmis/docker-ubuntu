@@ -6,6 +6,7 @@ MAINTAINER nimmis <kjell.havneskold@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install  -y --no-install-recommends git ca-certificates && \
+    apt-get -y dist-upgrade && \
     # Create autorun directories
     mkdir /etc/my_runonce && mkdir /etc/my_runalways && \
     # moved all configuration to separate git repository
