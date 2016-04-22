@@ -3,7 +3,7 @@
 
 This is a docker images with different LTS version of Ubuntu with a working init process and syslog
 
-Now with beta of 16.04
+Now with 16.04 as latest
 
 ### Why use this image
 
@@ -221,11 +221,11 @@ remove the container
 	docker run --rm nimmis/ubuntu set_tz list
 ### TAGs
 
-This image only contains the 2 latest LTS versions of Ubuntu 12.04 and 14.04, the versions are
+This image only contains the 3 latest LTS versions of Ubuntu 12.04,14.04 and 16.04, the versions are
 nimmis/ubuntu:<tag> where tag is
 
-- latest -  this gives the latest LTS version (14.04)
+- latest -  this gives the latest LTS version (16.04)
 - 12.04  -  this gives the 12.04 LTS version
 - 14.04  -  this gives the 14.04 LTS version
-- 16.04  -  this gives the beta of 16.04 LTS version
+- 16.04  -  this gives the 16.04 LTS version
 
