@@ -22,6 +22,8 @@ RUN apt-get update && apt-get install  -y --no-install-recommends git ca-certifi
     # remove extra space from git command
     apt-get remove -y git && \
     apt-get autoremove -y && \
+    # fix missing /etc/default/locale
+    /usr/sbin/update-locale && \
     # remove apt cache from image
     apt-get clean all
 
