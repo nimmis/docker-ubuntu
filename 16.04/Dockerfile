@@ -5,24 +5,25 @@ MAINTAINER nimmis <kjell.havneskold@gmail.com>
 # disable interactive functions
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install  -y --no-install-recommends git ca-certificates && \
+COPY root/. /
+
+RUN apt-get update && \
+
+    # install neede packages
+    apt-get install  -y --no-install-recommends ca-certificates && \
+
+    # upgrade OS
     apt-get -y dist-upgrade && \
-    # Create autorun directories
-    mkdir /etc/my_runonce && mkdir /etc/my_runalways && \
-    # moved all configuration to separate git repository
-    git clone https://github.com/nimmis/docker-utils.git && \
+
+    # Make info file about this build
+    mkdir -p /etc/BUILDS/ && \
+    printf "Build of nimmis/ubuntu:16.04, date: %s\n"  `date -u +"%Y-%m-%dT%H:%M:%SZ"` > /etc/BUILDS/ubuntu && \
+
     # run os fixes for Ubuntu
-    docker-utils/ubuntu/root/fix.sh && \
-    # copy configuration files and commands to disk
-    cp -p docker-utils/ubuntu/bin/* /usr/local/bin/ && \
-    cp -p docker-utils/ubuntu/my_runonce/* /etc/my_runonce/ && \
-    cp -p docker-utils/ubuntu/root/my* / && \
-    cp -pR docker-utils/ubuntu/supervisor /etc/ && \
-    # remove repository from image
-    rm -Rf docker-utils && \
-    # remove extra space from git command
-    apt-get remove -y git && \
+    /fix.sh && rm -f /fix.sh && \
+
     apt-get autoremove -y && \
+
     # remove apt cache from image
     apt-get clean all
 
