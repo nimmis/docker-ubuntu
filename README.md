@@ -1,7 +1,7 @@
 ## Ubuntu LTS version with some extra commands
- [![Docker Hub; nimmis/ubuntu](https://img.shields.io/badge/dockerhub-nimmis%2Fubuntu-green.svg)](https://registry.hub.docker.com/u/nimmis/ubuntu)
+ [![Docker Hub; nimmis/ubuntu](https://img.shields.io/badge/dockerhub-nimmis%2Fubuntu-green.svg)](https://registry.hub.docker.com/u/nimmis/ubuntu)[![](https://images.microbadger.com/badges/image/nimmis/ubuntu.svg)](https://microbadger.com/images/nimmis/ubuntu "Get your own image badge on microbadger.com")|
 
-This is a docker images with different LTS version of Ubuntu with a working init process and syslog
+This is a docker images with different LTS versions of Ubuntu with a working init process and syslog
 
 Now with 16.04 as latest
 
@@ -48,11 +48,11 @@ all messages sent via the syslog daemon is saved in /var/log/syslog
 
 ### Docker fixes 
 
-Also there are fixed (besideds the init process) assosiated with running ubuntu inside a docker container.
+Also there are fixed (besides the init process) associated with running ubuntu inside a docker container.
 
 ### New commands autostarted by supervisord
 
-To add other processes to run automaticly, add a file ending with .conf  in /etc/supervisor/conf.d/ 
+To add other processes to run automatically, add a file ending with .conf  in /etc/supervisor/conf.d/ 
 with a layout like this (/etc/supervisor/conf.d/myprogram.conf) 
 
 	[program:myprogram]
@@ -90,8 +90,7 @@ There is an optional parameter, to run a script after a service has start, e.g t
 
 ### Output information to docker logs
 
-The console output is owned by the my_init process so any output from commands woun't show in the docker log. To send a text from any command, either
-at startup och during run, append the output to the file /var/log/startup.log, e.g sending specific text to log
+The console output is owned by the my_init process so any output from commands won't show in the docker log. To send a text from any command, either at startup or during run, append the output to the file **/var/log/startup.log**, e.g sending specific text to log
 
 	echo "Application is finished" >> /var/log/startup.log
 
@@ -190,7 +189,7 @@ for extra functionality
 ## set_tz
 
 In the default configuration is set to UTC time, if you need it
-to use the corret time you can change to timezone for the container 
+to use the correct time you can change to timezone for the container 
 with this command, syntax is
 
 	set_tz <timezone>
@@ -219,13 +218,32 @@ Execute the following command, it will list available timezones and then
 remove the container
 
 	docker run --rm nimmis/ubuntu set_tz list
-### TAGs
 
-This image only contains the 3 latest LTS versions of Ubuntu 12.04,14.04 and 16.04, the versions are
-nimmis/ubuntu:<tag> where tag is
+## Issues
 
-- latest -  this gives the latest LTS version (16.04)
-- 12.04  -  this gives the 12.04 LTS version
-- 14.04  -  this gives the 14.04 LTS version
-- 16.04  -  this gives the 16.04 LTS version
+If you have any problems with or questions about this image, please contact us by submitting a ticket through a [GitHub issue](https://github.com/nimmis/docker-ubuntu/issues "GitHub issue")
 
+1. Look to see if someone already filled the bug, if not add a new one.
+2. Add a good title and description with the following information.
+ - if possible an copy of the output from **cat /etc/BUILDS/*** from inside the container
+ - any logs relevant for the problem
+ - how the container was started (flags, environment variables, mounted volumes etc)
+ - any other information that can be helpful
+
+## Contributing
+
+You are invited to contribute new features, fixes, or updates, large or small; we are always thrilled to receive pull requests, and do our best to process them as fast as we can.
+
+## TAGs
+
+This image contains  LTS versions of Ubuntu, the versions are
+**nimmis/ubuntu:< tag >** where tag is
+
+| Tag    | Ubuntu version | size |
+| ------ | -------------- | ---- |
+| latest |  latest/16.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu.svg)](https://microbadger.com/images/nimmis/ubuntu "Get your own image badge on microbadger.com")| 
+| 16.04 |  16.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:16.04.svg)](https://microbadger.com/images/nimmis/ubuntu:16.04 "Get your own image badge on microbadger.com")| 
+| 14.04 |  14.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:14.04.svg)](https://microbadger.com/images/nimmis/ubuntu:14.04 "Get your own image badge on microbadger.com")| 
+| 12.04 |  12.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:12.04.svg)](https://microbadger.com/images/nimmis/ubuntu:12.04 "Get your own image badge on microbadger.com")| 
+
+T
