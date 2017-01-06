@@ -1,0 +1,15 @@
+#!/bin/sh
+# system one time tasks
+
+PATH=/command:/sbin:/bin:/usr/sbin:/usr/bin
+
+#
+# check for timezone setting
+#
+
+if [ ! "$TIMEZONE" = "" ]; 
+  then
+  /usr/local/bin/set_tz $TIMEZONE
+fi
+
+
