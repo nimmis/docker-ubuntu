@@ -3,7 +3,8 @@
 
 This is a docker images with different LTS versions of Ubuntu with a working init process and syslog
 
-Now with 16.04 as latest
+Now with 16.04 as latest and 18.04 as beta build
+
 
 ### Why use this image
 
@@ -13,6 +14,10 @@ The unix process ID 1 is the process to receive the SIGTERM signal when you exec
 
 if the container has the command `CMD ["bash"]` then bash process will get the SIGTERM signal and terminate.
 All other processes running on the system will just stop without the possibility to shutdown correclty
+
+### News
+
+If access to internet the container will automaticly set correct timezone
 
 ### my_init init script
 
@@ -198,6 +203,9 @@ To get list of available timezones do
 
 	set_tz list
 
+### determine timezone automaticly
+
+If the docker container har access to internet it will determine the timezone from the obtained IP
 
 ### set timezone on startup
 
@@ -242,6 +250,7 @@ This image contains  LTS versions of Ubuntu, the versions are
 | Tag    | Ubuntu version | size |
 | ------ | -------------- | ---- |
 | latest |  latest/16.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu.svg)](https://microbadger.com/images/nimmis/ubuntu "Get your own image badge on microbadger.com")| 
+| beta |  beta/18.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:beta.svg)](https://microbadger.com/images/nimmis/ubuntu:beta "Get your own image badge on microbadger.com")| 
 | 16.04 |  16.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:16.04.svg)](https://microbadger.com/images/nimmis/ubuntu:16.04 "Get your own image badge on microbadger.com")| 
 | 14.04 |  14.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:14.04.svg)](https://microbadger.com/images/nimmis/ubuntu:14.04 "Get your own image badge on microbadger.com")| 
 | 12.04 |  12.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:12.04.svg)](https://microbadger.com/images/nimmis/ubuntu:12.04 "Get your own image badge on microbadger.com")| 
