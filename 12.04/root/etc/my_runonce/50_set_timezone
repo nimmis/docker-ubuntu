@@ -1,0 +1,39 @@
+#!/bin/sh
+# system one time tasks
+
+PATH=/command:/sbin:/bin:/usr/sbin:/usr/bin
+
+#
+# check for timezone setting
+#
+
+if [ "$TIMEZONE" = "" ]; then
+  	echo "timezone not set, trying to autodetect"
+  	myip=$(curl -s canhazip.com)
+  	if ! expr "$myip" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
+     		echo "failed to get external ip timezone not set"
+     		exit 1
+  	fi
+
+  	echo "external ip is $myip"
+
+  	tz=$(curl -s http://ip-api.com/json/$myip | sed  's/^.*timezone":"//g' | awk -F '"' '{print $1}')
+      
+  	if ! echo $tz | egrep -q '^[a-z,A-Z]{1,}(\/[a-z,A-Z]+){0,1}$'; then
+     		echo "No timezone could be determined from IP ($tz)"
+     		exit 1
+  	fi
+
+  	if [ ! -f /usr/share/zoneinfo/$tz ]; then
+		echo "Timezone $tz not available on time system"
+		exit 1
+  	fi
+
+  	echo "timezone should be $tz"
+	/usr/local/bin/set_tz $tz
+
+else
+  	/usr/local/bin/set_tz $TIMEZONE
+fi
+
+
