@@ -12,7 +12,7 @@ if [ "$TIMEZONE" = "" ]; then
   	myip=$(curl -s canhazip.com)
   	if ! expr "$myip" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
      		echo "failed to get external ip timezone not set"
-     		exit 1
+     		exit 
   	fi
 
   	echo "external ip is $myip"
@@ -21,12 +21,12 @@ if [ "$TIMEZONE" = "" ]; then
       
   	if ! echo $tz | egrep -q '^[a-z,A-Z]{1,}(\/[a-z,A-Z]+){0,1}$'; then
      		echo "No timezone could be determined from IP ($tz)"
-     		exit 1
+     		exit 
   	fi
 
   	if [ ! -f /usr/share/zoneinfo/$tz ]; then
 		echo "Timezone $tz not available on time system"
-		exit 1
+		exit 
   	fi
 
   	echo "timezone should be $tz"
