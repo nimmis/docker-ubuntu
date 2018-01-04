@@ -12,6 +12,9 @@ RUN apt-get update && \
     # install neede packages
     apt-get install  -y --no-install-recommends ca-certificates && \
 
+    # missing tzdata in 16.04
+    apt-get install -y tzdata && \
+
     # upgrade OS
     apt-get -y dist-upgrade && \
 
