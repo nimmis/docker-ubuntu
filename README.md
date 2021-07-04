@@ -3,8 +3,6 @@
 
 This is a docker images with different LTS versions of Ubuntu with a working init process and syslog
 
-Now with 16.04 as latest and 18.04 as beta build
-
 
 ### Why use this image
 
@@ -249,8 +247,14 @@ This image contains  LTS versions of Ubuntu, the versions are
 
 | Tag    | Ubuntu version | size |
 | ------ | -------------- | ---- |
-| latest |  latest/16.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu.svg)](https://microbadger.com/images/nimmis/ubuntu "Get your own image badge on microbadger.com")| 
-| beta |  beta/18.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:beta.svg)](https://microbadger.com/images/nimmis/ubuntu:beta "Get your own image badge on microbadger.com")| 
+| latest |  latest/18.04 | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu.svg)](https://microbadger.com/images/nimmis/ubuntu "Get your own image badge on microbadger.com")| 
+| 20.04 |  20.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:20.04.svg)](https://microbadger.com/images/nimmis/ubuntu:20.04 "Get your own image badge on microbadger.com")| 
+| 18.04 |  18.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:18.04.svg)](https://microbadger.com/images/nimmis/ubuntu:18.04 "Get your own image badge on microbadger.com")| 
+
+Depricated versions (EOL - do not use)
+
+| Tag    | Ubuntu version | size |
+| ------ | -------------- | ---- |
 | 16.04 |  16.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:16.04.svg)](https://microbadger.com/images/nimmis/ubuntu:16.04 "Get your own image badge on microbadger.com")| 
 | 14.04 |  14.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:14.04.svg)](https://microbadger.com/images/nimmis/ubuntu:14.04 "Get your own image badge on microbadger.com")| 
 | 12.04 |  12.04    | [![](https://images.microbadger.com/badges/image/nimmis/ubuntu:12.04.svg)](https://microbadger.com/images/nimmis/ubuntu:12.04 "Get your own image badge on microbadger.com")| 
