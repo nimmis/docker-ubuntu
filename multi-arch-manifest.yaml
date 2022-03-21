@@ -1,0 +1,21 @@
+image: nimmis/ubuntu:18.04
+manifests:
+  - image: nimmis/ubuntu:18.04-amd64
+    platform:
+      architecture: amd64
+      os: linux
+  - image: nimmis/ubuntu:18.04-arm32v5
+    platform:
+      architecture: arm
+      os: linux
+      variant: v5
+  - image: nimmis/ubuntu:18.04-arm32v7
+    platform:
+      architecture: arm
+      os: linux
+      variant: v7
+  - image: nimmis/ubuntu:18.04-arm64v8
+    platform:
+      architecture: arm64
+      os: linux
+      variant: v8
