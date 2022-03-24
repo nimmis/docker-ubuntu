@@ -14,6 +14,22 @@ manifests:
       architecture: arm64
       os: linux
       variant: v8
+image: nimmis/ubuntu:22.04
+manifests:
+  - image: nimmis/ubuntu:22.04-amd64
+    platform:
+      architecture: amd64
+      os: linux
+  - image: nimmis/ubuntu:22.04-arm32v7
+    platform:
+      architecture: arm
+      os: linux
+      variant: v7
+  - image: nimmis/ubuntu:22.04-arm64v8
+    platform:
+      architecture: arm64
+      os: linux
+      variant: v8
 
 image: nimmis/ubuntu:20.04
 manifests:
