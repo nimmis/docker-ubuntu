@@ -99,7 +99,7 @@ The console output is owned by the my_init process so any output from commands w
 
 or output from script
 
-	/usr/local/bin/myscript >> /var/log/startlog.log
+	/usr/local/bin/myscript >> /var/log/startup.log
 
 
 	> docker run -d --name ubuntu nimmis/ubuntu
