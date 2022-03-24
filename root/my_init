@@ -1,4 +1,4 @@
-#!/usr/bin/python -u
+#!/usr/bin/python2 -u
 #
 # Install script to replace the normal init process
 # and handle start of stop of processes with

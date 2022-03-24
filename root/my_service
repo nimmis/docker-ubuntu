@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Install script to handle normal 
 # /etc/init.d/ startscript in
