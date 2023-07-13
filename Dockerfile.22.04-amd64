@@ -7,10 +7,14 @@ ENV DEBIAN_FRONTEND noninteractive
 
 COPY root/. /
 
-RUN apt-get update && \
+RUN apt update && apt upgrade -y 
 
     # install neede packages
-    apt-get install  -y --no-install-recommends ca-certificates python2 && \
+RUN    apt-get install  -y --no-install-recommends ca-certificates && \
+
+    # python 2 not installed by default
+
+    apt install -y python2 && \
 
     # missing tzdata in 18.04 beta
 
@@ -21,7 +25,7 @@ RUN apt-get update && \
 
     # Make info file about this build
     mkdir -p /etc/BUILDS/ && \
-    printf "Build of nimmis/ubuntu:20.04, date: %s\n"  `date -u +"%Y-%m-%dT%H:%M:%SZ"` > /etc/BUILDS/ubuntu && \
+    printf "Build of nimmis/ubuntu:22.04, date: %s\n"  `date -u +"%Y-%m-%dT%H:%M:%SZ"` > /etc/BUILDS/ubuntu && \
 
     # run os fixes for Ubuntu
     /fix.sh && rm -f /fix.sh && \
